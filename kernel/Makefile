@@ -1,6 +1,6 @@
 PWD := $(shell pwd)
 
-ccflags-y += -I$(src)/include/ -msse3 -msse4.1 -mavx2 -mpreferred-stack-boundary=4
+ccflags-y += -I$(src)/include/ -msse4.2 -mpreferred-stack-boundary=4
 
 citytest-objs := main.o city.o
 obj-m += citytest.o

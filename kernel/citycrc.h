@@ -1,3 +1,7 @@
+// cityhash-kernel
+// Copyright (c) 2019 Austen Barker
+//
+// - original copyright notice -
 // Copyright (c) 2011 Google, Inc.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
