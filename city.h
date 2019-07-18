@@ -62,27 +62,23 @@
 #ifndef CITY_HASH_H_
 #define CITY_HASH_H_
 
-#include <stdlib.h>  // for size_t.
+#include <stdlib.h>
 #include <stdint.h>
-//#include <utility>
 
 typedef uint8_t uint8;
 typedef uint32_t uint32;
 typedef uint64_t uint64;
-typedef uint64_t* uint128;
 
-inline uint64 Uint128Low64(const uint128 x) { return x[0]; }
-inline uint64 Uint128High64(const uint128 x) { return x[1]; }
+//These work better as macros, that way the type system doesn't complain
+#define Uint128Low64(x) 	(x).first
+#define Uint128High64(x)        (x).second
 
-typedef struct{
+//for some reason this library used a combo of the __uint128_t type and the c++ stl pair structure
+typedef struct __attribute__((__packed__)){
     uint64 first;
     uint64 second;
-} pair;
+} uint128;
 
-pair make_pair(uint64 a, uint64 b){
-    pair new_pair = {a, b};
-    return new_pair;
-}	
 
 // Hash function for a byte array.
 uint64 CityHash64(const char *buf, size_t len);

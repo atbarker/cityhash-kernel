@@ -38,6 +38,7 @@ uint128 CityHashCrc128(const char *s, size_t len);
 uint128 CityHashCrc128WithSeed(const char *s, size_t len, uint128 seed);
 
 // Hash function for a byte array.  Sets result[0] ... result[3].
+// TODO, create some typedef to deal with 256 bit results
 void CityHashCrc256(const char *s, size_t len, uint64 *result);
 
 #endif  // CITY_HASH_CRC_H_
