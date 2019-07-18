@@ -1,5 +1,5 @@
 dependencies:
-	gcc -g -O2 -c city.c
+	gcc -g -O2 -c city.c -msse4.2
 
 main: dependencies
 	gcc -g -O2 -c main.c
