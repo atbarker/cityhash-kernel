@@ -1,3 +1,5 @@
+ALL: main test
+
 dependencies:
 	gcc -g -O2 -c city.c -msse4.2
 
