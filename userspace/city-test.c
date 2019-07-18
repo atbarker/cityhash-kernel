@@ -27,9 +27,9 @@
 #endif
 
 
-static const uint64 k0 = 0xc3a5c85c97cb3127ULL;
-static const uint64 kSeed0 = 1234567;
-static const uint64 kSeed1 = 0xc3a5c85c97cb3127ULL;
+static const uint64_t k0 = 0xc3a5c85c97cb3127ULL;
+static const uint64_t kSeed0 = 1234567;
+static const uint64_t kSeed1 = 0xc3a5c85c97cb3127ULL;
 static const uint128 kSeed128 = {1234567, 0xc3a5c85c97cb3127ULL};
 static const int kDataSize = 1 << 20;
 static const int kTestSize = 300;
@@ -40,22 +40,22 @@ static int errors = 0;  // global error count
 
 // Initialize data to pseudorandom values.
 void setup() {
-  uint64 a = 9;
-  uint64 b = 777;
+  uint64_t a = 9;
+  uint64_t b = 777;
   for (int i = 0; i < kDataSize; i++) {
     a += b;
     b += a;
     a = (a ^ (a >> 41)) * k0;
     b = (b ^ (b >> 41)) * k0 + i;
-    uint8 u = b >> 37;
-    memcpy(data + i, &u, 1);  // uint8 -> char
+    uint8_t u = b >> 37;
+    memcpy(data + i, &u, 1);  // uint8_t -> char
   }
 }
 
 #if 1
 
 #define C(x) 0x ## x ## ULL
-static const uint64 testdata[300][16] = {
+static const uint64_t testdata[300][16] = {
 {C(9ae16a3b2f90404f), C(75106db890237a4a), C(3feac5f636039766), C(3df09dfc64c09a2b), C(3cb540c392e51e29), C(6b56343feac0663), C(5b7bc50fd8e8ad92),
 C(3df09dfc64c09a2b), C(3cb540c392e51e29), C(6b56343feac0663), C(5b7bc50fd8e8ad92),
 C(95162f24e6a5f930), C(6808bdf4f1eb06e0), C(b3b1f3a67b624d82), C(c9a62f12bd4cd80b),
@@ -1258,14 +1258,14 @@ C(698fe54b2b93933b), C(dacc2b28404d0f10), C(815308a32a9b0daf), C(efb2ab27bf6fd0b
 C(5398210c)},
 };
 
-void Check(uint64 expected, uint64 actual) {
+void Check(uint64_t expected, uint64_t actual) {
   if (expected != actual) {
     fprintf(stderr, "ERROR: expected %lx, but got %lx", expected, actual);
     ++errors;
   }
 }
 
-void Test(const uint64* expected, int offset, int len) {
+void Test(const uint64_t* expected, int offset, int len) {
   const uint128 u = CityHash128(data + offset, len);
   const uint128 v = CityHash128WithSeed(data + offset, len, kSeed128);
   Check(expected[0], CityHash64(data + offset, len));
@@ -1279,7 +1279,7 @@ void Test(const uint64* expected, int offset, int len) {
 #ifdef __SSE4_2__
   const uint128 y = CityHashCrc128(data + offset, len);
   const uint128 z = CityHashCrc128WithSeed(data + offset, len, kSeed128);
-  uint64 crc256_results[4];
+  uint64_t crc256_results[4];
   CityHashCrc256(data + offset, len, crc256_results);
   Check(expected[7], Uint128Low64(y));
   Check(expected[8], Uint128High64(y));
@@ -1298,7 +1298,7 @@ void Dump(int offset, int len) {
   const uint128 v = CityHash128WithSeed(data + offset, len, kSeed128);
   const uint128 y = CityHashCrc128(data + offset, len);
   const uint128 z = CityHashCrc128WithSeed(data + offset, len, kSeed128);
-  uint64 crc256_results[4];
+  uint64_t crc256_results[4];
   CityHashCrc256(data + offset, len, crc256_results);
   cout << hex
        << "{C(" << CityHash64(data + offset, len) << "), "
